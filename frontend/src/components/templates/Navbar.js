@@ -62,6 +62,9 @@ export default class NavBar extends Component {
                                     <Link to="/displayrecruiterjobs" className="nav-link">My jobs</Link>
                                 </li>
                                 <li>
+                                    <Link to="/myemployees" className="nav-link">My Employees</Link>
+                                </li>
+                                <li>
                                     <button onClick={() => {localStorage.setItem('token', ""); window.location.reload()}}>Logout</button>
                                 </li>                            
                             </ul>

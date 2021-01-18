@@ -72,7 +72,7 @@ export default class MyApplications extends Component {
                     {
                         this.state.display.map((app) => 
                             <tr>
-                                <td>{app.title}</td><td>{app.joinDate}</td><td>{app.salary}</td><td>{app.recruiterEmail}</td><td>{app.status}</td>
+                                <td>{app.title}</td><td>{new Date(app.joinDate).toUTCString()}</td><td>{app.salary}</td><td>{app.recruiterEmail}</td><td>{app.status}</td>
                             </tr>
                         )
                     }

@@ -16,6 +16,7 @@ import DisplayApplicantJobs from './components/common/DisplayApplicantJobs';
 import Apply from './components/common/Apply';
 import MyApplications from './components/common/MyApplications';
 import ViewApplications from './components/common/ViewApplications';
+import AcceptedApplicants from './components/common/AcceptedApplicants';
 import axios from 'axios';
 // import Profile from './components/Users/Profile'
 
@@ -69,6 +70,7 @@ class App extends Component {
         <Route path="/apply" component={Apply}/>
         <Route path="/myapplications" component={MyApplications}/>
         <Route path="/viewapplications" component={ViewApplications}/>
+        <Route path="/myemployees" component={AcceptedApplicants}/>
         </UserContext.Provider>
       </div>
     </Router>

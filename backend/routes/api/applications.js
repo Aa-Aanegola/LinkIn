@@ -38,6 +38,22 @@ Router.post('/get', async (req, res) => {
     }
 })
 
+// @route GET api/applications/get
+// @desc Get all application 
+// @access Public
+Router.get('/getall', async (req, res) => {
+    try {
+        await Application.find({}, (err, applications) => {
+            if(!err)
+                res.status(200).json(applications);
+            else
+                res.status(500).json({error: err});
+        })
+    } catch {
+        console.log(err);
+    }
+})
+
 // @route GET api/applications/listing/:listingID
 // @desc Get a list of all applications for a particular listing ID
 // @access Public
