@@ -100,9 +100,11 @@ Router.post('/accept', async(req, res) => {
         await Application.updateMany({ applicantID: req.body.applicantID, status: 'Pending' }, { status: 'Rejected' });
         await Application.updateMany({ applicantID: req.body.applicantID, status: 'Shortlisted' }, { status: 'Rejected' });
         await Application.updateOne({ _id: req.body.applicationID }, { status: 'Accepted', joinDate: new Date() });
-        Listing.findById(req.body.listingID).then(async(listing) => {
+        console.log(req.body.listingID);
+        Listing.findById(req.body.listingID).then(async (listing) => {
             listing.posFilled += 1;
-            await Listing.updateOne({ _id: req.body.listingID }, listing);
+            console.log(listing);
+            await Listing.updateOne({ _id:listing._id }, {posFilled: listing.posFilled});
 
             if (listing.posFilled === listing.posCap) {
                 await Application.updateMany({ listingID: listing._id, status: 'Pending' }, { status: 'Rejected' });

@@ -29,7 +29,7 @@ export default class DisplayRecruiterJobs extends Component {
             } else {
                 console.log(userContext.user.email);
                 this.setState({jobs : res.data});
-                const myJobs = this.state.jobs.filter((listing) => listing.recruiterEmail === userContext.user.email);
+                const myJobs = this.state.jobs.filter((listing) => listing.recruiterEmail === userContext.user.email && listing.posFilled != listing.posCap);
                 this.setState({jobs: myJobs});
                 console.log(this.state.jobs);
             }
@@ -90,6 +90,12 @@ export default class DisplayRecruiterJobs extends Component {
     }
 
     render() {
+        const {userContext} = this.context;
+
+        if(!userContext.user || userContext.user.type !== "Recruiter") {
+            return <Redirect to="/"></Redirect>
+        }
+
 
         return (
         <div>

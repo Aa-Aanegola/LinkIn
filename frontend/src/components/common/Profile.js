@@ -175,6 +175,6 @@ export default class Profile extends Component {
                 )
             }
         }
-        return <h1>Dhruv sir bond sir</h1>
+        return <h1>Please Login/Register</h1>
     }
 }

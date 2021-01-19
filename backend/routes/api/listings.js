@@ -55,7 +55,7 @@ Router.post('/delete', async(req, res) => {
         Listing.findByIdAndDelete(req.body._id, async (err, got) => {
             console.log(err);
             res.status(200).json({delete : "deleted successfully"});
-            await Application.updateMany({listingID: req.body._id, status: 'Pending'}, {status: 'Deleted'});
+            await Application.updateMany({listingID: req.body._id}, {status: 'Deleted'});
         })
     } catch {
         res.status(500).json({ error: "Failed to delete listing" });

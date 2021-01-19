@@ -25,6 +25,8 @@ export default class ViewApplications extends Component {
         }
     }
 
+    static contextType = UserContext;
+
     componentDidMount = async () => {
         let listingID = window.location.href.split('/').pop();
         try {
@@ -133,7 +135,7 @@ export default class ViewApplications extends Component {
             const res = await axios.post('/api/applications/get', {id});
             console.log(res.data);
             console.log(id);
-            const res2 = await axios.post('/api/applications/accept', {applicantID: res.data[0].applicantID, applicationID: id});
+            const res2 = await axios.post('/api/applications/accept', {applicantID: res.data[0].applicantID, applicationID: id, listingID: res.data[0].listingID});
             if(res2.status != 200) {
                 alert("Failed to accept application");
             } else {
@@ -146,6 +148,13 @@ export default class ViewApplications extends Component {
     }
 
     render() {
+
+        const {userContext} = this.context;
+
+        if(!userContext.user || userContext.user.type !== "Recruiter") {
+            return <Redirect to="/"></Redirect>
+        }
+
         if(this.state.loading) {
             return (
                 <Loader

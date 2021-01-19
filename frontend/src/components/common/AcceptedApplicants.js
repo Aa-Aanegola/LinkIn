@@ -83,7 +83,15 @@ export default class AcceptedApplicants extends Component {
         this.setState({loading: false});
     }
 
+    static contextType = UserContext;
+
     render() {
+        const {userContext} = this.context;
+
+        if(!userContext.user || userContext.user.type !== "Recruiter") {
+            return <Redirect to="/"></Redirect>
+        }
+
         if(this.state.loading) {
             return (
                 <Loader

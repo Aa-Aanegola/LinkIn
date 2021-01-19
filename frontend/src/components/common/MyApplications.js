@@ -51,7 +51,7 @@ export default class MyApplications extends Component {
         this.state.myApps.forEach( (app) => {
             let listing = this.state.jobs.find((ele) => ele._id === app.listingID);
             if(!listing) {
-                display.push({id: counter++, title: "Deleted", joinDate: app.joinDate, salary: 0, recruiterEmail: "Deleted", status: app.status});
+                display.push({id: counter++, title: "Deleted", joinDate: "Deleted", salary: 0, recruiterEmail: "Deleted", status: app.status});
             } else {
                 display.push({id: counter++, title: listing.title, joinDate: app.joinDate, salary: listing.salary, recruiterEmail: listing.recruiterEmail, status: app.status});
             }
@@ -62,8 +62,8 @@ export default class MyApplications extends Component {
 
     render() {
         const {userContext} = this.context;
-        if(!userContext.user){
-            return <div></div>
+        if(!userContext.user || userContext.user.type !== "Applicant"){
+            return <Redirect to="/"/>
         }
         return (
             <div style={{width: '100%'}}>

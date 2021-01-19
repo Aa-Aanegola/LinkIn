@@ -37,7 +37,7 @@ export default class DisplayApplicantJobs extends Component {
                 console.log('No data retrieved');
             } else {
                 const today = new Date();
-                const notExpired = res.data.filter((job) => new Date(job.closeDate) > today);
+                const notExpired = res.data.filter((job) => new Date(job.closeDate) > today && job.posFilled < job.posCap && job.appFilled < job.appCap);
                 console.log(notExpired);
                 this.setState({jobs: notExpired});
                 this.setState({curJobs: notExpired});
@@ -129,15 +129,19 @@ export default class DisplayApplicantJobs extends Component {
 
     apply = (event) => {
         if(this.state.myApps.filter((ele) => ele.status === 'Pending').length >= 10) {
-            console.log('Can only have 10 pending applications');
+            alert('Can only have 10 pending applications');
         } else {
-            window.location.assign(`/apply/${event.target.id}`);
+            if(this.state.myApps.filter((ele) => ele.status === 'Accepted').length > 0) {
+                alert("Already accepted in a job");
+            } else {
+                window.location.assign(`/apply/${event.target.id}`);
+            }
         }
     }
 
     render() {
         const {userContext} = this.context;
-        if(!userContext.user){
+        if(!userContext.user || userContext.user.type != "Applicant"){
             return (
                 <Redirect to="/"/>
             )
@@ -196,7 +200,7 @@ export default class DisplayApplicantJobs extends Component {
                     <div id={listing._id}>
                         <Box component="span" display="block"><b>Title: {listing.title}</b></Box>
                         <Box component="span" display="block">Recruiter Email ID: {listing.recruiterEmail}</Box>
-                        <Box component="span" display="block">Number of positions: {listing.posCap}</Box>
+                        <Box component="span" display="block">Number of positions: {listing.posCap - listing.posFilled}</Box>
                         <Box component="span" display="block">Duration: {listing.duration}</Box>
                         <Box component="span" display="block">Salary: {listing.salary}</Box>
                         <Box component="span" display="block">Type: {listing.type}</Box>

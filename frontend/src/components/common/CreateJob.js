@@ -85,7 +85,7 @@ export default class CreateJob extends Component {
 
     render() {
         const {userContext} = this.context;
-        if(!userContext.user)
+        if(!userContext.user || userContext.user.type != "Recruiter")
             return (<Redirect to="/"/>)
         return (
             <div>
@@ -104,6 +104,7 @@ export default class CreateJob extends Component {
                                className="form-control" 
                                value={this.state.appCap}
                                min={0}
+                               step={1}
                                onChange={this.onChangeAppCap}
                                />
                     </div>
@@ -114,6 +115,7 @@ export default class CreateJob extends Component {
                                className="form-control" 
                                value={this.state.posCap}
                                min={0}
+                               step={1}
                                onChange={this.onChangePosCap}
                                />
                     </div>
@@ -141,6 +143,7 @@ export default class CreateJob extends Component {
                                value={this.state.duration} 
                                max={6}
                                min={0}
+                               step={1}
                                onChange={this.onChangeDuration}
                                />
                     </div>
@@ -150,6 +153,7 @@ export default class CreateJob extends Component {
                                className="form-control" 
                                value={this.state.salary}
                                min={0}
+                               step={100}
                                onChange={this.onChangeSalary}
                                />
                     </div>

@@ -56,6 +56,13 @@ export default class Apply extends Component {
     }
 
     render() {
+        const {userContext} = this.context;
+
+        if(!userContext.user || userContext.user.type !== "Applicant") {
+            return <Redirect to="/"></Redirect>
+        }
+
+
         return (
             <div>
                 <h2>SOP</h2>
