@@ -60,6 +60,14 @@ export default class MyApplications extends Component {
         console.log(this.state.display);
     }
 
+    updateRating = (event) => {
+
+    }
+
+    rate = (event) => {
+        console.log(event.target.id);
+    }
+
     render() {
         const {userContext} = this.context;
         if(!userContext.user || userContext.user.type !== "Applicant"){
@@ -68,7 +76,10 @@ export default class MyApplications extends Component {
         return (
             <div style={{width: '100%'}}>
                 <Table striped bordered hover>
+                    <thead>
                     <tr><th>Title</th><th>Join Date</th><th>Salary</th><th>Recruiter Email</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
                     {
                         this.state.display.map((app) => 
                             <tr>
@@ -76,6 +87,7 @@ export default class MyApplications extends Component {
                             </tr>
                         )
                     }
+                    </tbody>
                 </Table>
             </div>
         )

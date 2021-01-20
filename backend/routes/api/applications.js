@@ -83,7 +83,8 @@ Router.post('/apply', (req, res) => {
                         Listing.findById(req.body.listingID)
                                .then(async (listing) => {
                                    listing.appFilled += 1;
-                                   await Listing.findByIdAndUpdate(req.body.listingID, {appFilled: listing.appFilled})
+                                   await Listing.findByIdAndUpdate(req.body.listingID, {appFilled: listing.appFilled});
+                                   return res.status(200).send("OK");
                                })
 
                     }

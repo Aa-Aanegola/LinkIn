@@ -4,6 +4,7 @@ import axios from 'axios';
 import {UserContext} from '../contexts/UserContext';
 import Box from '@material-ui/core/Box';
 import {generate} from 'shortid';
+import Resizer from 'react-image-file-resizer';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -11,20 +12,29 @@ export default class Profile extends Component {
         this.state = {
             contactNo : "",
             bio : "",
-            skillOptions: ['C++', 'Python', 'JS', 'Julia', 'React', 'Express', 'C']
+            skillOptions: ['C++', 'Python', 'JS', 'Julia', 'React', 'Express', 'C'],
+            picture: "",
+            file: null,
+            fileName: "Choose a file",
         }
     }
-
+    
+    static contextType = UserContext;
+    
     componentDidMount() {
         const {userContext, setUserContext} = this.context;
+        if(!userContext.user)
+            return;
         this.setState({userContext, setUserContext});
+        console.log(userContext);
+        this.setState({picture: userContext.user.picture});
         console.log(this.context);
         if(userContext.user) {
             this.state.bio = userContext.user.bio;
             this.state.contactNo = userContext.user.contactNo;
         }
     }
-
+    
     onChangeBio = (event) => {
         const {userContext, setUserContext} = this.context;
         let user = userContext.user;
@@ -41,7 +51,7 @@ export default class Profile extends Component {
     onSubmit = async (event) => {
         try {
             const {userContext} = this.context;
-            const newUser = userContext.user;
+            const newUser = {...userContext.user, picture: this.state.picture};
             console.log(newUser);
             const res = await axios.post('/api/users/update', newUser);
 
@@ -91,7 +101,7 @@ export default class Profile extends Component {
     commitChanges = async (event) => {
         try {
             const {userContext} = this.context;
-            const newUser = userContext.user;
+            const newUser = {...userContext.user, picture: this.state.picture};
             console.log(newUser);
             const res = await axios.post('/api/users/update', newUser);
 
@@ -117,7 +127,21 @@ export default class Profile extends Component {
         setUserContext({user: newUser});
     }
 
-    static contextType = UserContext;
+    resizeFile = (file) => {
+        return new Promise(resolve => {
+            Resizer.imageFileResizer(file, 128, 128, 'PNG', 100, 0, 
+            uri => resolve(uri), 
+            'base64');
+        });
+    }
+
+    setFile = async (event) => {
+        this.setState({fileName: event.target.files[0].name});
+        console.log(this.state.fileName);
+        const curFile = event.target.files[0];
+        const res = await this.resizeFile(curFile);
+        this.setState({picture: res});
+    }
 
     render() {
         const {userContext} = this.context;
@@ -129,6 +153,10 @@ export default class Profile extends Component {
                         <Box component="span" display="block">Type of user : {userContext.user.type} </Box>
                         <Box component="span" display="block">Email ID: {userContext.user.email} </Box>
                         <Box component="span" display="block">Education</Box>
+                        
+                        <img src={this.state.picture} alt="Profile Picture"/>
+                        <input type="file" onChange={this.setFile} accept=".png"/>
+                        
                         {userContext.user.education.map(
                             (edu) => 
                             <div key ={edu.id}>
@@ -158,6 +186,10 @@ export default class Profile extends Component {
                         <Box component="span" display="block">Currently logged in as : {userContext.user.name} </Box>
                         <Box component="span" display="block">Type of user : {userContext.user.type} </Box>
                         <Box component="span" display="block">Email ID: {userContext.user.email} </Box>
+                        
+                        <img src={this.state.picture} alt="Profile Picture"/>
+                        <input type="file" onChange={this.setFile} accept=".png"/>
+                        
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Bio: </label>

@@ -2,33 +2,6 @@ const mongoose = require('mongoose');
 const { UnavailableForLegalReasons } = require('http-errors');
 const Schema = mongoose.Schema;
 
-const instituteSchema = ({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    startYear: {
-        type: String,
-        required: true
-    },
-    endYear: {
-        type: String,
-        required: false
-    }
-});
-
-const RatingSchema = mongoose.Schema({
-    rating: {
-        type: Number,
-        required: true
-    },
-    userEmail: {
-        type: String,
-        required: true
-    }
-});
-
 
 const userSchema = ({
     email: {
@@ -70,7 +43,13 @@ const userSchema = ({
         trim: true
     },
     rating: {
-        type: [RatingSchema]
+        type: Array
+    },
+    picture: {
+        type: String
+    }, 
+    resume: {
+        type: String
     }
 });
 

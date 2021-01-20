@@ -37,7 +37,8 @@ export default class DisplayApplicantJobs extends Component {
                 console.log('No data retrieved');
             } else {
                 const today = new Date();
-                const notExpired = res.data.filter((job) => new Date(job.closeDate) > today && job.posFilled < job.posCap && job.appFilled < job.appCap);
+                console.log(res.data);
+                const notExpired = res.data.filter((job) => new Date(job.closeDate) > today);
                 console.log(notExpired);
                 this.setState({jobs: notExpired});
                 this.setState({curJobs: notExpired});
@@ -52,7 +53,7 @@ export default class DisplayApplicantJobs extends Component {
             }
             this.setState({loading: false});
         } catch {
-            alert('Failed to retrieve data');
+            console.log('Failed to retrieve data');
         }
     }
 
@@ -210,7 +211,7 @@ export default class DisplayApplicantJobs extends Component {
                         }
                         {
                             this.state.myApps.find(app => app.listingID === listing._id) ? <button className="btn btn-primary" style={{backgroundColor: "green"}}>Applied</button>
-                            :   listing.posFilled >= listing.posCap ? <button className="btn btn-primary" style={{backgroundColor: "red"}}>Full</button>
+                            :   listing.posFilled >= listing.posCap || listing.appFilled >= listing.appCap ? <button className="btn btn-primary" style={{backgroundColor: "red"}}>Full</button>
                             : <button className="btn btn-primary" id= {listing._id} onClick={this.apply}>Apply</button>
                         }
                     </div>

@@ -21,7 +21,8 @@ export default class ViewApplications extends Component {
             applicants: [],
             display: [],
             descending: false,
-            loading: true
+            loading: true,
+            reload: false
         }
     }
 
@@ -139,12 +140,14 @@ export default class ViewApplications extends Component {
             if(res2.status != 200) {
                 alert("Failed to accept application");
             } else {
+                //this.setState({reload: true});
                 window.location.reload();
             }
         } catch {
             console.log("Failed to accept application");
+        } finally {
+            window.location.reload();
         }
-        window.location.reload();
     }
 
     render() {

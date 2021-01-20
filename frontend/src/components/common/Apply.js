@@ -45,14 +45,12 @@ export default class Apply extends Component {
                 console.log(res);
             } else {
                 alert('Application submitted');
-                window.location.assign('/');
             }
         } catch {
             alert('Failed to submit application');
-            window.location.assign('/');
+        } finally {
+            this.props.history.push('/myapplications');
         }
-        alert("Application submitted");
-        window.location.assign('/');
     }
 
     render() {

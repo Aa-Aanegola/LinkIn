@@ -34,7 +34,7 @@ export default class DisplayRecruiterJobs extends Component {
                 console.log(this.state.jobs);
             }
         } catch {
-            alert('Failed to load jobs');
+            console.log('Failed to load jobs');
         }
         
     }
