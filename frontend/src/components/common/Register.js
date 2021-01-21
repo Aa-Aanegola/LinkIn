@@ -61,11 +61,6 @@ export default class Register extends Component {
         axios.post('/api/users/register', newUser)
              .then(async res => {alert("Created\t" + res.data.email);
                    console.log(res.data);
-                   try {
-                       await axios.post('/api/mail/sendmail', {email: res.data.email});
-                   } catch {
-                       console.log("Failed to send email");
-                   }
                 })
              .catch(res => {alert("Failed to create user")});
         this.setState({

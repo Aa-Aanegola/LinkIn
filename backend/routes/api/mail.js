@@ -18,8 +18,8 @@ Router.post('/sendmail', async (req, res) => {
         var mailOptions = {
             from: 'linkinmailer@gmail.com',
             to: req.body.email,
-            subject: 'LinkIn Registration',
-            text: 'Welcome to LinkIn! We hope you find your dream job.'
+            subject: 'Application accepted',
+            text: `Congratulations! ${req.body.recruiter} accepted your application.` 
         };
 
         await transporter.sendMail(mailOptions, (err, info) => {

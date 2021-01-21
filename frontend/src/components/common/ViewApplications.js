@@ -63,6 +63,7 @@ export default class ViewApplications extends Component {
                 let struct = {
                     applicantID: user._id,
                     applicationID: app._id,
+                    email: user.email,
                     name: user.name,
                     skills: user.skills,
                     applicationDate: app.applicationDate,
@@ -131,8 +132,11 @@ export default class ViewApplications extends Component {
 
     accept = async (event) => {
         try {
+            const {userContext} = this.context;
             const id = event.target.id;
             console.log(id);
+            const userEmail = this.state.display.filter((app) => app.applicationID === id)[0].email;
+            console.log(userEmail);
             const res = await axios.post('/api/applications/get', {id});
             console.log(res.data);
             console.log(id);
@@ -141,6 +145,11 @@ export default class ViewApplications extends Component {
                 alert("Failed to accept application");
             } else {
                 window.location.assign('/myemployees');
+            }
+            try {
+                await axios.post('/api/mail/sendmail', {email: userEmail, recruiter: userContext.user.name});
+            } catch {
+                console.log("Failed to send email");
             }
         } catch {
             console.log("Failed to accept application");
