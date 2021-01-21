@@ -70,11 +70,20 @@ export default class CreateJob extends Component {
         this.state.recruiterEmail = userContext.user.email;
 
         const listing = this.state;
+        
+        if(!listing.title || !listing.appCap || !listing.posCap || !listing.type || !listing.salary){
+            alert("Failed to create job");
+            return;
+        }
+        
         console.log(listing);
         try {
             const res = await axios.post('/api/listings/create', listing);
-            if(res.status != 200)
+            console.log(res);
+            if(res.status != 200){
                 console.log(res);
+                alert("Failed to create job");
+            }
             else 
                 alert("Job created");
             window.location.reload(true);

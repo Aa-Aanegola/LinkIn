@@ -22,11 +22,17 @@ Router.get('/',(req, res) => {
 // @desc Create a new job
 // @access Recruiter only
 Router.post('/create', (req, res) => {
-    
-    const newListing = new Listing(req.body);
-    newListing.save()
-        .then(res.status(200).json({ create: "Job creation successful" }))
-        .catch(res.status(500).json({ error: "Failed to create job" }));
+    try {
+        const newListing = new Listing(req.body);
+        if(!newListing){
+            res.status(500).json({error: "Failed to create"});
+        }
+        newListing.save()
+            .then(res.status(200).json({ create: "Job creation successful" }))
+            .catch(res.status(500).json({ error: "Failed to create job" }));
+    } catch {
+        res.status(500).json({error: "Failed to create job"});
+    }
 });
 
 // @route POST api/listings/edit

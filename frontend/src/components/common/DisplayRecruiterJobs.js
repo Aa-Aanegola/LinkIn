@@ -78,7 +78,7 @@ export default class DisplayRecruiterJobs extends Component {
     editJob = async (event) => {
         const editJob = this.state.jobs.find(x => x._id === event.target.id);
         if(editJob.appFilled > editJob.appCap || editJob.posFilled > editJob.posCap){
-            alert("Failed to alert");
+            alert("Failed to edit job");
             return;
         }
         
