@@ -110,7 +110,7 @@ export default class DisplayApplicantJobs extends Component {
     }
 
     applyFilterType = (event) => {
-        let jobList = this.state.curJobs.filter((ele) => ele.type === this.state.filterType);
+        let jobList = this.state.jobs.filter((ele) => ele.type === this.state.filterType);
         this.setState({curJobs: jobList});
     }
 

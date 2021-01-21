@@ -103,6 +103,11 @@ Router.post('/accept', async(req, res) => {
         await Application.updateOne({ _id: req.body.applicationID }, { status: 'Accepted', joinDate: new Date() });
         console.log(req.body.listingID);
         Listing.findById(req.body.listingID).then(async (listing) => {
+            if(listing.posFilled >= listing.posCap) {
+                console.log("Positions filled");
+                res.status(500).json({err: "Failed"});
+            }
+
             listing.posFilled += 1;
             console.log(listing);
             await Listing.updateOne({ _id:listing._id }, {posFilled: listing.posFilled});
@@ -111,6 +116,7 @@ Router.post('/accept', async(req, res) => {
                 await Application.updateMany({ listingID: listing._id, status: 'Pending' }, { status: 'Rejected' });
                 await Application.updateMany({ _listingID: listing._id, status: 'Shortlisted' }, { status: 'Rejected' });
             }
+            res.status(200).json({message: "Done"});
         });
     } catch {
         console.log("Failed to accept application");

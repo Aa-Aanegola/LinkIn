@@ -59,8 +59,14 @@ export default class Register extends Component {
         console.log(newUser);
 
         axios.post('/api/users/register', newUser)
-             .then(res => {alert("Created\t" + res.data.email);
-                   console.log(res.data)})
+             .then(async res => {alert("Created\t" + res.data.email);
+                   console.log(res.data);
+                   try {
+                       await axios.post('/api/mail/sendmail', {email: res.data.email});
+                   } catch {
+                       console.log("Failed to send email");
+                   }
+                })
              .catch(res => {alert("Failed to create user")});
         this.setState({
             name: '',
@@ -98,7 +104,7 @@ export default class Register extends Component {
                     </div>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text" 
+                        <input type="email" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}

@@ -29,6 +29,7 @@ export default class DisplayRecruiterJobs extends Component {
             } else {
                 console.log(userContext.user.email);
                 this.setState({jobs : res.data});
+                console.log(this.state.jobs);
                 const myJobs = this.state.jobs.filter((listing) => listing.recruiterEmail === userContext.user.email && listing.posFilled != listing.posCap);
                 this.setState({jobs: myJobs});
                 console.log(this.state.jobs);
@@ -76,6 +77,11 @@ export default class DisplayRecruiterJobs extends Component {
 
     editJob = async (event) => {
         const editJob = this.state.jobs.find(x => x._id === event.target.id);
+        if(editJob.appFilled > editJob.appCap || editJob.posFilled > editJob.posCap){
+            alert("Failed to alert");
+            return;
+        }
+        
         const res = await axios.post('/api/listings/edit', editJob);
         if(res.status != 200) {
             alert('Failed to edit job');
@@ -103,7 +109,9 @@ export default class DisplayRecruiterJobs extends Component {
             (listing) => 
                 <div key={listing._id}>
                     <Box component="span" display="block"><b>Title: {listing.title}</b></Box>
+                    <label>Position cap:</label>
                     <input type="text" id={listing._id} onChange={this.posCapChange} value={listing.posCap}/>
+                    <label>Application cap:</label>
                     <input type="text" id={listing._id} onChange={this.appCapChange} value={listing.appCap}/>
                     <DateTimePicker id={listing._id} onChange={(newDate) => this.closeDateChange(newDate, listing._id)} value={new Date(listing.closeDate)}/>
                     <Box component="span" display="block">Applications filled: {listing.appFilled}</Box>

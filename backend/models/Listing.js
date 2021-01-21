@@ -49,8 +49,7 @@ const ListingSchema = new Schema({
         required: true
     },
     requiredSkills: {
-        type: String,
-        required: true
+        type: String
     },
     rating: {
         type: Array

@@ -34,9 +34,9 @@ Router.post('/create', (req, res) => {
 // @access Recruiter only
 Router.post('/edit', async(req, res) => {
     try {
-        if (req.posFilled > req.posCap) {
+        if (req.body.posFilled > req.body.osCap) {
             res.status(500).json({ error: "Invalid update" });
-        } else if (req.appFilled > req.appCap) {
+        } else if (req.body.appFilled > req.body.appCap) {
             res.status(500).json({ error: "Invalid update" });
         }
         await Listing.findByIdAndUpdate(req.body._id, req.body);

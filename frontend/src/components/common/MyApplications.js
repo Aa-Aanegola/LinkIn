@@ -60,14 +60,6 @@ export default class MyApplications extends Component {
         console.log(this.state.display);
     }
 
-    updateRating = (event) => {
-
-    }
-
-    rate = (event) => {
-        console.log(event.target.id);
-    }
-
     render() {
         const {userContext} = this.context;
         if(!userContext.user || userContext.user.type !== "Applicant"){

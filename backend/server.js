@@ -9,6 +9,7 @@ const passport = require('passport');
 const users = require('./routes/api/users');
 const applications = require('./routes/api/applications');
 const listings = require('./routes/api/listings');
+const mail = require('./routes/api/mail');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/users', users);
 app.use('/api/listings', listings);
 app.use('/api/applications', applications);
+app.use('/api/mail', mail);
 
 // Initiate the server
 InitiateMongo();
