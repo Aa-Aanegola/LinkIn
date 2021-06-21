@@ -22,11 +22,11 @@ LinkIn was designed with two main types of users in mind, the applicants and com
 
 #### Applicant specific features
 - **View jobs -** A dashboard with all the available jobs, required skills, salary and other important details is visible to the applicants. Fuzzy searching, sorting and filtering help applicants find their desired job faster and more efficiently. 
-- **Write SOP - ** If an applicant is interested in a job, they will be prompted to write a statement of purpose which on submission will be visible to the recruiters. If the applicant uploaded a resume to the portal, that will also be visible to the recruiters. 
+- **Write SOP -** If an applicant is interested in a job, they will be prompted to write a statement of purpose which on submission will be visible to the recruiters. If the applicant uploaded a resume to the portal, that will also be visible to the recruiters. 
 - **View applications -** After applying for a job, applicants can view all their applications along with their status. Once one of their applications gets accepted, the rest of their applications are automatically invalidated. This is to ensure maximum coverage for all the users of the application. 
 
 #### Recruiter specific features
-- **Create listing - ** Recruiters can fill in the required information for a listing and set a valid timeframe. Once the listing is made public, only the deadline / number of possible applicants can be edited. The salary and other details can't be edited after a listing is made public to ensure that the system is fair to the applicants. 
+- **Create listing -** Recruiters can fill in the required information for a listing and set a valid timeframe. Once the listing is made public, only the deadline / number of possible applicants can be edited. The salary and other details can't be edited after a listing is made public to ensure that the system is fair to the applicants. 
 - **View listings -** Recruiters can view listings they created, and can navigate to a page with all the active applications for the listing. Here they can view the SOP and resume of applicants and decide to accept/reject/shortlist applicants. If they choose to accept an applicant, an email that details their acceptance is sent to the applicant. 
 - **View employees -** Recruiters can also view all the employees with their job information. Fuzzy searching, filters and sort functionality help recruiters find the employee they want faster. 
 
